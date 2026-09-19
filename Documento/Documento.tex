@@ -68,11 +68,27 @@ Para encontrar la nota, se puede tomar de referencia la mayor nota que nos da el
 
 
 \subsection{Pregunta c}
-$$f_{\text{alias}} = 0.6223 - 1 = -0.3777 ;\Rightarrow; F_{\text{alias}} = |-0.3777 \times 8000| = 3021.97,\text{Hz}$$
+
+Lo que sucederá en este caso es que se escuchará otra nota distinta a la esperada por el efecto de aliasing.
+De acuerdo a la equivalencia enarmónica la nota del enunciado es equivalente al Re\#\textsubscript{8}, por lo que el valor de n es de 42. 
+
+La frecuencia que se escuchará se obtiene de calcular primero la frecuencia correspondiente de la nota haciendo uso de la ecuación \eqref{eq:nota}, esto da un valor aproximado de 4978.03 Hz.
+Luego se puede utilizar la ecuación normalizada de frecuencia que está dada por \eqref{eq:fnormalizada}, donde F = 4978.03 Hz y F\textsubscript{s} = 8000 Hz, obteniendo como resultado 0.6222.
+
+\begin{equation}
+f = \frac{F}{F_s}
+\label{eq:fnormalizada}
+\end{equation}
+
+f debe de estar dentro del rango fundamental, por lo que para lograrlo se resta 1 al valor obtenido anteriormente. 
+Se obtiene el valor de -0.3778 y se multiplica por F\textsubscript{s} para obtener el valor de frecuencia que se escuchará, siendo este de aproxiadamente 3022 Hz (siendo positivo debido a que no existen frecuencias negativas).
+La nota más cercana a esta frecuencia es n = 33, que corresponde a Fa\textsubscript{7}
 
 \subsection{Pregunta d}
 
-
+El filtro anti-aliasing se encarga de eliminar las frecuencias superiores a la frecuencia de pliegue del sistema antes del muestreo.
+Para esto se utiliza un filtro pasa bajas y soluciona el problema de que componentes de alta frecuencia se reflejen como notas falsas (para este ejemplo).
+Como se evidencio en la pregunta c, si bien no pudimos capturar la nota de pícolo, se observa un equivalente o alias de la misma, dando un error en la señal.
 %-----------------------------------------------
 %     2. Visualización de una señal y su alias
 %-----------------------------------------------
