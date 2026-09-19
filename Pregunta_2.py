@@ -19,6 +19,13 @@ def main():
     print("ciclos: ",ciclos)
 
 
+
+
+
+
+
+
+
     # Definir los tamaños del eje X e Y
     x = np.linspace(-10, 10, 400)
     # Establecemos la función seno al eje Y
