@@ -1,0 +1,124 @@
+% IEEE-formatted preliminary article (conference)
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{adjustbox}
+\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{positioning, fit, arrows.meta, calc, patterns, decorations.pathreplacing}
+
+\title{Tarea 1 - Señales, Sistemas y Procesamiento Digital de Señales}
+\author{\IEEEauthorblockN{Zúñiga Ramírez Jose Eduardo}
+\IEEEauthorblockA{Escuela de Ingeniería Electrónica \\
+Instituto Tecnológico de Costa Rica \\
+\{je.zuniga\}@estudiantec.cr}
+}
+\date{}
+
+\begin{document}
+\maketitle
+
+% Loosen line breaking to avoid overfull boxes in two-column layout
+\sloppy
+
+
+
+
+%-----------------------------------------------
+%     1. Muestreo y aliasing en señales musicales
+%-----------------------------------------------
+
+\section{Muestreo y aliasing en señales musicales}
+
+\subsection{Pregunta a}
+La frecuencia de muestreo es de 8kHz, el mismo enunciado lo indica al decir que el sistema captura audio a dicho valor.
+La frecuencia de plegado o también llamado de Nyquist, se puede calcular por la ecuación \eqref{eq:nyquist}
+
+\begin{equation}
+F_{Nyquist} = \frac{F_s}{2}
+\label{eq:nyquist}
+\end{equation}
+
+
+Sustituyendo $F_s = 8\,\text{kHz}$ en la ecuación \eqref{eq:nyquist}, se tiene que el valor de la frecuencia de plegado es de 4 kHz
+
+\subsection{Pregunta b}
+
+La nota musical más alta que puede grabar el sistema sin alias es de n = 38.
+Este valor se obtuvo utilizando como referencia la ecuación \eqref{eq:nota}, que relaciona la frecuencia de una nota con el número de semitonos $n$ que la separan de La\textsubscript{4}.
+
+\begin{equation}
+F = 440 \cdot 2^{\frac{n}{12}}
+\label{eq:nota}
+\end{equation}
+
+Esta ecuación se sustituye el valor de F por 4000 Hz y se resuelve con logaritmos para lograr despejar el valor de n. 
+Al hacer el cálculo, n da un valor de 38.2 por lo que se debe obtar por un redondeo inferior para cumplir con la condición de frecuencia. 
+Para encontrar la nota, se puede tomar de referencia la mayor nota que nos da el enunciado (Si\textsubscript{6} con n = 26) y contamos las posiciones hasta llegar a 38, siendo la mayor nota posible a capturar la Si\textsubscript{7}.
+
+
+\subsection{Pregunta c}
+$$f_{\text{alias}} = 0.6223 - 1 = -0.3777 ;\Rightarrow; F_{\text{alias}} = |-0.3777 \times 8000| = 3021.97,\text{Hz}$$
+
+\subsection{Pregunta d}
+
+
+%-----------------------------------------------
+%     2. Visualización de una señal y su alias
+%-----------------------------------------------
+
+\section{Visualización de una señal y su alias}
+
+
+
+%-----------------------------------------------
+%     3. Aliasing para recuperar la información de una señal modulada
+%-----------------------------------------------
+
+\section{Aliasing para recuperar la información de una señal modulada} 
+
+
+
+
+%-----------------------------------------------
+%     4. Cuantización y representación en punto fijo
+%-----------------------------------------------
+
+\section{Cuantización y representación en punto fijo}
+
+
+
+
+%-----------------------------------------------
+%     5. Investigación de un caso de conducción temeraria
+%-----------------------------------------------
+
+\section{Investigación de un caso de conducción temeraria}
+
+
+%-----------------------------------------------
+%       AI Tool Usage Declaration
+%-----------------------------------------------
+
+\section*{AI Tool Usage Declaration}
+
+All the content presented in this work was determined by the authors of this project, using tools like Gemini, GitHub Copilot and Claude as supportive resources.
+These tools were used to help with the clarification of concepts and ideas, to improve the structure of the documents as well as the grammar of it.
+Finally, the formatting of figures was generated using the assistance of AI tools. 
+
+
+%\bibliographystyle{IEEEtran}
+%\bibliography{references}
+
+\end{document}
+
