@@ -3,67 +3,66 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
+def frecuencia_alias(F, Fs):
+    #Devuelve la frecuencia equivalente de F dentro del rango [-Fs/2, Fs/2].
+    return ((F + Fs / 2) % Fs) - Fs / 2
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Señal senoidal y su alias bajo muestreo.")
-    parser.add_argument("--F", type=float, required=True, help="Frecuencia natural (Hz)")
+    parser = argparse.ArgumentParser(
+        description="Señal senoidal y su alias bajo muestreo."
+    )
+    parser.add_argument("--F", type=float, required=True, help="Frecuencia natural de la señal analógica (Hz)")
     parser.add_argument("--Fs", type=float, required=True, help="Frecuencia de muestreo (Hz)")
     parser.add_argument("--ciclos", type=float, default=3, help="Ciclos de la señal original a mostrar")
     args = parser.parse_args()
 
     F, Fs, ciclos = args.F, args.Fs, args.ciclos
-    print("F: ",F)
-    print("Fs: ",Fs)
-    print("ciclos: ",ciclos)
 
+    if Fs <= 0:
+        raise ValueError("Fs debe ser mayor que 0")
+    if ciclos <= 0:
+        raise ValueError("ciclos debe ser mayor que 0")
 
+    F_alias = frecuencia_alias(F, Fs)
+    hay_aliasing = not np.isclose(F_alias, F)
 
+    print("F: ", F)
+    print("Fs: ", Fs)
+    print("ciclos: ", ciclos)
+    print("F_alias: ", F_alias, "Hz" + (" (hay aliasing)" if hay_aliasing else " (sin aliasing)"))
 
+    # Duración de la ventana de tiempo, en función de los ciclos de la señal original
+    f_base = abs(F) if F != 0 else Fs
+    duracion = ciclos / f_base
 
+    # Eje de tiempo "continuo" (aproximado con alta resolución) para la señal analógica
+    t_cont = np.linspace(0, duracion, 5000)
+    x_t = np.sin(2 * np.pi * F * t_cont)
 
+    # Instantes y muestras discretas tomadas a Fs
+    t_n = np.arange(0, duracion, 1 / Fs)
+    x_n = np.sin(2 * np.pi * F * t_n)
 
+    # Gráfico
+    plt.figure(figsize=(10, 5))
+    plt.title("Tarea 1")
 
+    plt.plot(t_cont, x_t, color="red", linewidth=1.5, label=f"x(t), F = {F:g} Hz")
 
-    # Definir los tamaños del eje X e Y
-    x = np.linspace(-10, 10, 400)
-    # Establecemos la función seno al eje Y
-    y = np.sin(x)
-    
-    # Crear el gráfico
-    plt.figure(figsize = (10, 3))
-    # Creamos la gráfica del seno con color rojo y tamaño de línea 3
-    plt.plot(x, y, color = "red", linewidth = 3)
-    # Establecemos el título del gráfico
-    plt.title("Gráfica del seno")
-    # Establecemos el nombre del eje X
-    plt.xlabel("x")
-    # Establecemos el nombre del eje Y
-    plt.ylabel("sen(x)")
-    # Ocultamos la rejilla
-    plt.grid(False)
-    # Establecemos el color y grosor de la línea divisora del eje X
-    plt.axhline(0, color = "gray", lw = 1)
-    # Establecemos el color y grosor de la línea divisora del eje Y
-    plt.axvline(0, color = "gray", lw = 1)
-    # Mostramos el gráfico del seno
+    if hay_aliasing:
+        x_alias_t = np.sin(2 * np.pi * F_alias * t_cont)
+        plt.plot(t_cont, x_alias_t, color="black", linewidth=1.5,
+                  label=f"x_alias(t), F_alias = {F_alias:g} Hz")
 
+    plt.stem(t_n, x_n, linefmt="green", markerfmt="go", basefmt=" ")
+    plt.plot([], [], "go", label=f"x[n], Fs = {Fs:g} Hz")  # entrada de leyenda para las muestras
 
-
-
-    # Definir los tamaños del eje X e Y
-    x2 = np.linspace(-10, 10, 800)
-    # Establecemos la función seno al eje Y
-    y2 = np.sin(x2)
-
-    # Creamos la gráfica del seno con color azul y tamaño de línea 3 (mismo figure/axes que la anterior)
-    plt.plot(x2, y2, color = "blue", linewidth = 3)
-
-
-
-
-
+    plt.xlabel("t (s)")
+    plt.ylabel("Amplitud")
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
     plt.show()
 
 
